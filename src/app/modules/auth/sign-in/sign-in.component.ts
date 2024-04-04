@@ -12,6 +12,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
+
 @Component({
     selector     : 'auth-sign-in',
     templateUrl  : './sign-in.component.html',

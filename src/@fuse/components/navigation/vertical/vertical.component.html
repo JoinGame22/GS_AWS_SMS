@@ -41,13 +41,6 @@
                         [name]="name"></fuse-vertical-navigation-basic-item>
                 </ng-container>
 
-                <!-- Basic -->
-                <ng-container *ngIf="item.type === 'basic'">
-                    <fuse-vertical-navigation-basic-item
-                        [item]="item"
-                        [name]="name"></fuse-vertical-navigation-basic-item>
-                </ng-container>
-
                 <!-- Collapsable -->
                 <ng-container *ngIf="item.type === 'collapsable'">
                     <fuse-vertical-navigation-collapsable-item

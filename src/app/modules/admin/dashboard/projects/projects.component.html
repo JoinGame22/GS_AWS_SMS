@@ -47,40 +47,27 @@
         </div>
       </div>
     </div>
-
-      <button mat-flat-button="" 
-        class="bg-accent mdc-button mdc-button--unelevated mat-mdc-unelevated-button mat-accent mat-mdc-button-base" 
-        mat-ripple-loader-class-name="mat-mdc-button-ripple">
-        
-        <span class="mat-mdc-button-persistent-ripple mdc-button__ripple"></span>
-        
-        <mat-icon role="img" 
-            class="mat-icon notranslate icon-size-5 mat-icon-no-color" 
-            aria-hidden="true" 
-            data-mat-icon-type="svg" 
-            data-mat-icon-name="envelope" 
-            data-mat-icon-namespace="heroicons_solid"  style="color: white;">
-
-          <svg xmlns="http://www.w3.org/2000/svg" 
-              viewBox="0 0 24 24" 
-              fill="currentColor" 
-              aria-hidden="true" 
-              fit="" height="100%" 
-              width="100%" 
-              preserveAspectRatio="xMidYMid meet" 
-              focusable="false">
-          </svg>
-        </mat-icon>
-      
-        <span class="mdc-button__label" style="color: white;">
-        <span class="ml-2" >
-          Messages
-        </span>
-      </span>
-      <span class="mat-mdc-focus-indicator"></span>
-      <span class="mat-mdc-button-touch-target"></span>
-      <span class="mat-ripple mat-mdc-button-ripple"></span>
-  </button>
+   <!-- Actions -->
+   <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+    <button
+        class="bg-accent"
+        mat-flat-button
+        [color]="'accent'">
+        <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+        <span class="ml-2">Messages</span>
+    </button>
+    <button
+        mat-flat-button
+        [color]="'primary'">
+        <mat-icon
+            class="icon-size-5"
+            [svgIcon]="'heroicons_solid:cog-8-tooth'"></mat-icon>
+        <span class="ml-2">Settings</span>
+    </button>
+ </div>
+     
 
   </div>
 </div>

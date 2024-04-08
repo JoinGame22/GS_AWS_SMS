@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
@@ -12,15 +12,23 @@ import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
+import { authHttpInterceptorFn, provideAuth0 } from '@auth0/auth0-angular';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimations(),
-        provideHttpClient(),
+        provideHttpClient(withInterceptors([authHttpInterceptorFn])),
         provideRouter(appRoutes,
             withPreloading(PreloadAllModules),
             withInMemoryScrolling({scrollPositionRestoration: 'enabled'}),
         ),
+        provideAuth0({
+            domain: 'dev-3tgncbyjqfirede5.us.auth0.com',
+            clientId: 'CbQMJDZno82wRRZ056DfmwZhDR358YFr',
+            authorizationParams: {
+                redirect_uri: window.location.origin,
+            }
+          }),
 
         // Material Date Adapter
         {
@@ -77,7 +85,7 @@ export const appConfig: ApplicationConfig = {
         },
 
         // Fuse
-        provideAuth(),
+       
         provideIcons(),
         provideFuse({
             mockApi: {

@@ -1,11 +1,12 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { DOCUMENT, NgClass, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.types';
 import { Subject, takeUntil } from 'rxjs';
@@ -37,6 +38,8 @@ export class UserComponent implements OnInit, OnDestroy
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private _userService: UserService,
+        public auth: AuthService,
+        @Inject(DOCUMENT) private doc: Document
     )
     {
     }
@@ -56,6 +59,8 @@ export class UserComponent implements OnInit, OnDestroy
             .subscribe((user: User) =>
             {
                 this.user = user;
+
+                console.log(this.user);
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
@@ -101,6 +106,6 @@ export class UserComponent implements OnInit, OnDestroy
      */
     signOut(): void
     {
-        this._router.navigate(['/sign-out']);
+        this.auth.logout({ logoutParams: { returnTo: this.doc.location.origin } });
     }
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { User } from 'app/core/user/user.types';
 import { map, Observable, ReplaySubject, tap } from 'rxjs';
 
@@ -8,6 +9,7 @@ export class UserService
 {
     private _httpClient = inject(HttpClient);
     private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+    private _auth:AuthService = inject(AuthService);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -36,14 +38,27 @@ export class UserService
     /**
      * Get the current signed-in user data
      */
-    get(): Observable<User>
+    async get()
     {
-        return this._httpClient.get<User>('api/common/user').pipe(
-            tap((user) =>
-            {
-                this._user.next(user);
-            }),
-        );
+
+        await this._auth.user$.subscribe(
+            (userLogin) =>{
+
+                const user ={
+
+                    id: userLogin.email,
+                    name: userLogin.name,
+                    email: userLogin.email,
+                    avatar: userLogin.picture
+
+                }
+
+                console.log(userLogin);
+        
+                this._user.next(user);;
+            }
+        )
+        
     }
 
     /**
